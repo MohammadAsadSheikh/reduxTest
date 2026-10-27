@@ -10,7 +10,7 @@ import {
 } from '../features/counter/counterSlice';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function CounterScreen() {
+export default function CounterScreen({ navigation }) {
   const count = useSelector(state => state.counter.value);
   const dispatch = useDispatch();
 
@@ -31,6 +31,11 @@ export default function CounterScreen() {
         <Button title="Add 5" onPress={() => dispatch(incrementByAmount(5))} />
 
         <Button title="Reset" onPress={() => dispatch(reset())} />
+
+        <Button
+          title="Go to Login"
+          onPress={() => navigation.navigate('Login')}
+        />
       </View>
     </SafeAreaView>
   );
