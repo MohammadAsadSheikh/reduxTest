@@ -34,7 +34,7 @@ export default function CounterScreen({ navigation }) {
 
         <Button
           title="Go to Login"
-          onPress={() => navigation.navigate('Login')}
+          onPress={() => navigation.navigate('Account')}
         />
       </View>
     </SafeAreaView>
