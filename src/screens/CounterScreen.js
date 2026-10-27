@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { selectCounterValue } from '../features/counter/counterSelectors';
 
 import {
   increment,
@@ -11,7 +12,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function CounterScreen({ navigation }) {
-  const count = useAppSelector(state => state.counter.value);
+  const count = useAppSelector(selectCounterValue);
   const dispatch = useAppDispatch();
 
   return (

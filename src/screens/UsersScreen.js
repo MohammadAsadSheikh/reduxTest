@@ -11,11 +11,18 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { fetchUsers } from '../features/users/usersSlice';
-
+import {
+  selectUsers,
+  selectUsersStatus,
+  selectUsersError,
+} from '../features/users/usersSelectors';
 export default function UsersScreen({ navigation }) {
   const dispatch = useAppDispatch();
 
-  const { data, status, error } = useAppSelector(state => state.users);
+  const data = useAppSelector(selectUsers);
+  const status = useAppSelector(selectUsersStatus);
+  const error = useAppSelector(selectUsersError);
+
   useEffect(() => {
     if (status === 'idle') {
       dispatch(fetchUsers());

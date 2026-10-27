@@ -3,11 +3,16 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { loginSuccess, logout } from '../features/auth/authSlice';
+import {
+  selectAuthUser,
+  selectIsAuthenticated,
+} from '../features/auth/authSelectors';
 
 export default function LoginScreen() {
   const dispatch = useAppDispatch();
 
-  const { user, isAuthenticated } = useAppSelector(state => state.auth);
+  const user = useAppSelector(selectAuthUser);
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
 
   const handleLogin = () => {
     dispatch(
