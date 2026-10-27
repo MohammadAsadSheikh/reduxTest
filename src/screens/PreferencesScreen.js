@@ -53,12 +53,19 @@ export default function PreferencesScreen() {
       let isActive = true;
 
       async function getPreferences() {
-        const preferences = await loadPreferences();
+        try {
+          const preferences = await loadPreferences();
 
-        if (isActive) {
-          setNotificationsEnabled(preferences.notificationsEnabled);
-          setCompactListEnabled(preferences.compactListEnabled);
-          setPreferencesLoaded(true);
+          if (isActive) {
+            setNotificationsEnabled(preferences.notificationsEnabled);
+            setCompactListEnabled(preferences.compactListEnabled);
+          }
+        } catch (error) {
+          console.error('Failed to load preferences:', error);
+        } finally {
+          if (isActive) {
+            setPreferencesLoaded(true);
+          }
         }
       }
 
@@ -141,9 +148,9 @@ export default function PreferencesScreen() {
         <View style={styles.infoCard}>
           <Text style={styles.infoTitle}>About preferences</Text>
           <Text style={styles.infoText}>
-            These settings currently apply only while this screen remains
-            mounted. They do not yet control device notifications or change the
-            Users screen layout.
+            Your preferences are saved on this device. Compact user list changes
+            the Users screen layout. Notifications is a preference toggle and
+            does not yet enable device notifications.
           </Text>
         </View>
       </ScrollView>

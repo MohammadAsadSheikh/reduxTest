@@ -137,10 +137,14 @@ export default function UsersScreen({ navigation }) {
       let isActive = true;
 
       async function getPreferences() {
-        const preferences = await loadPreferences();
+        try {
+          const preferences = await loadPreferences();
 
-        if (isActive) {
-          setCompactListEnabled(preferences.compactListEnabled);
+          if (isActive) {
+            setCompactListEnabled(preferences.compactListEnabled);
+          }
+        } catch (preferenceError) {
+          console.warn('Failed to load user preferences:', preferenceError);
         }
       }
 

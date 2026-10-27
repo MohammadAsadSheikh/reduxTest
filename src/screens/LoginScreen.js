@@ -7,6 +7,8 @@ import {
   selectAuthUser,
   selectIsAuthenticated,
 } from '../features/auth/authSelectors';
+import colors from '../theme/colors';
+import spacing from '../theme/spacing';
 
 export default function LoginScreen() {
   const dispatch = useAppDispatch();
@@ -34,7 +36,7 @@ export default function LoginScreen() {
 
         {isAuthenticated ? (
           <>
-            <Text style={styles.message}>Welcome, {user.name}!</Text>
+            <Text style={styles.message}>Welcome, {user?.name || 'User'}!</Text>
 
             <Button title="Logout" onPress={handleLogout} />
           </>
@@ -53,19 +55,22 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.background,
   },
   content: {
     flex: 1,
     justifyContent: 'center',
-    padding: 24,
-    gap: 20,
+    padding: spacing.xl,
+    gap: spacing.lg,
   },
   title: {
+    color: colors.text,
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
   },
   message: {
+    color: colors.textSecondary,
     fontSize: 18,
     textAlign: 'center',
   },

@@ -70,11 +70,22 @@ export default function ProfileScreen() {
 
           <Text style={styles.name}>{name}</Text>
 
-          <View style={styles.statusBadge}>
+          <View
+            style={[
+              styles.statusBadge,
+              !isAuthenticated && styles.guestStatusBadge,
+            ]}
+          >
             <View
               style={[styles.statusDot, !isAuthenticated && styles.guestDot]}
             />
-            <Text style={styles.statusText}>
+
+            <Text
+              style={[
+                styles.statusText,
+                !isAuthenticated && styles.guestStatusText,
+              ]}
+            >
               {isAuthenticated ? 'Signed in' : 'Guest account'}
             </Text>
           </View>
@@ -248,5 +259,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 19,
     marginTop: spacing.sm,
+  },
+  guestStatusBadge: {
+    backgroundColor: colors.border,
+  },
+
+  guestStatusText: {
+    color: colors.textSecondary,
   },
 });

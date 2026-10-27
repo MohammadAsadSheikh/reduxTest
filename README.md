@@ -1,19 +1,20 @@
 # reduxTest — React Native + Redux Toolkit
 
-A React Native CLI application demonstrating scalable state management, feature-based architecture, navigation, API integration, and automated testing.
+A React Native CLI application demonstrating feature-based architecture, scalable state management with Redux Toolkit, API integration, navigation, persistent user preferences, and automated testing.
 
 ## Features
 
-- **Redux Toolkit:** Centralized store with Counter, Authentication, and Users features.
-- **Feature-based architecture:** Separates screens, state management, selectors, and navigation.
-- **React Navigation:** Native stack navigation and bottom tabs.
-- **API integration:** Fetches users from JSONPlaceholder using `createAsyncThunk`.
-- **Loading and error handling:** Manages asynchronous request states.
-- **Reusable Redux hooks:** Centralizes Redux hook imports.
-- **Selectors:** Separates state selection from UI components.
+- **Redux Toolkit:** Centralized state management for Counter, Authentication, and Users features.
+- **Feature-based architecture:** Separates application setup, feature logic, selectors, screens, and navigation.
+- **React Navigation:** Native stack navigation and bottom-tab navigation.
+- **API integration:** Fetches user data from JSONPlaceholder using `createAsyncThunk`.
+- **Loading and error handling:** Handles asynchronous request states, failures, retries, and empty results.
+- **Search and sorting:** Filters users by name, email, or company and sorts names alphabetically.
+- **User details:** Displays information for selected users.
+- **Persistent preferences:** Saves notification preferences and compact-list settings using AsyncStorage.
+- **Reusable components:** Includes a custom switch component.
 - **Safe-area support:** Uses `react-native-safe-area-context`.
-- **Unit tests:** Tests reducers and async thunk behavior with Jest.
-- **Continuous integration:** GitHub Actions runs the Jest test suite on pushes and pull requests to `main`.
+- **Automated testing:** Uses Jest to test reducers, selectors/utilities, and asynchronous request behavior.
 
 ## Tech Stack
 
@@ -22,81 +23,114 @@ A React Native CLI application demonstrating scalable state management, feature-
 - Redux Toolkit
 - React Redux
 - React Navigation
+- AsyncStorage
 - Jest
-- GitHub Actions
+- ESLint
+- GitHub Actions, if configured in the repository
 
 ## Project Structure
 
 ```text
-src/
-├── app/
-│   ├── store.js
-│   └── hooks.js
-├── features/
-│   ├── counter/
-│   │   ├── counterSlice.js
-│   │   ├── counterSelectors.js
-│   │   └── __tests__/
-│   ├── auth/
-│   │   ├── authSlice.js
-│   │   ├── authSelectors.js
-│   │   └── __tests__/
-│   └── users/
-│       ├── usersSlice.js
-│       ├── usersSelectors.js
-│       └── __tests__/
-├── navigation/
-├── screens/
-│   ├── CounterScreen.js
-│   ├── LoginScreen.js
-│   ├── UsersScreen.js
-│   └── UserDetailsScreen.js
-├── components/
-├── services/
-└── utils/
+reduxTest/
+├── src/
+│   ├── app/
+│   │   ├── store.js
+│   │   └── hooks.js
+│   ├── components/
+│   │   └── CustomSwitch.tsx
+│   ├── features/
+│   │   ├── auth/
+│   │   │   ├── authSlice.js
+│   │   │   ├── authSelectors.js
+│   │   │   └── __tests__/
+│   │   ├── counter/
+│   │   │   ├── counterSlice.js
+│   │   │   ├── counterSelectors.js
+│   │   │   └── __tests__/
+│   │   ├── preferences/
+│   │   │   └── preferencesStorage.js
+│   │   └── users/
+│   │       ├── usersSlice.js
+│   │       ├── usersSelectors.js
+│   │       ├── usersUtils.js
+│   │       └── __tests__/
+│   ├── navigation/
+│   │   ├── AppNavigator.js
+│   │   └── MainTabs.js
+│   ├── screens/
+│   │   ├── AccountScreen.js
+│   │   ├── CounterScreen.js
+│   │   ├── DashboardScreen.js
+│   │   ├── LoginScreen.js
+│   │   ├── PreferencesScreen.js
+│   │   ├── ProfileScreen.js
+│   │   ├── UserDetailsScreen.js
+│   │   └── UsersScreen.js
+│   └── theme/
+│       ├── colors.js
+│       └── spacing.js
+├── __tests__/
+├── App.tsx
+└── README.md
 ```
+
+_Note: Update this tree if your actual repository structure differs._
 
 ## Architecture
 
-The application uses a feature-based Redux Toolkit architecture.
+The application follows a feature-based Redux Toolkit architecture.
 
-1. Screens dispatch actions or asynchronous thunks.
+1. Screens dispatch Redux actions or asynchronous thunks.
 2. Reducers update their respective feature states.
-3. Selectors expose state to screens.
+3. Selectors provide state to UI components.
 4. React Redux subscribes components to relevant state changes.
-5. React Navigation manages transitions between screens.
+5. React Navigation manages screen transitions.
+6. AsyncStorage persists user preferences across app restarts.
 
 ## Getting Started
 
 ### Requirements
 
-- Node.js compatible with the project engine requirement (`>=22.11.0`)
+- Node.js compatible with the version specified by the project.
 - npm
-- Xcode for iOS development
-- Android Studio for Android development
+- Xcode and iOS Simulator for iOS development.
+- Android Studio and an Android emulator or device for Android development.
+
+Check `package.json` for the exact Node.js engine requirement before choosing a version.
 
 ### Installation
 
 ```bash
-git clone <https://github.com/MohammadAsadSheikh/reduxTest>
+git clone https://github.com/MohammadAsadSheikh/reduxTest.git
 cd reduxTest
 npm ci
 ```
 
-### iOS
+### Start Metro
 
 ```bash
-npx pod-install ios
 npm start
 ```
 
-In another terminal:
+Keep Metro running while launching the app.
+
+### Run on iOS
+
+Install CocoaPods dependencies if needed:
+
+```bash
+cd ios
+pod install
+cd ..
+```
+
+In another terminal, run:
 
 ```bash
 npm run ios
 ```
 
-### Android
+### Run on Android
 
 Start an Android emulator or connect an Android device, then run:
 
@@ -106,34 +140,41 @@ npm run android
 
 ## Testing
 
-Run the complete Jest test suite:
+Run the Jest test suite:
 
 ```bash
 npm test -- --runInBand
 ```
 
-The tests cover Counter and Authentication reducers, Users async state transitions, and mocked API thunk behavior.
+Run lint checks:
+
+```bash
+npm run lint
+```
+
+The tests cover counter and authentication reducers, user state transitions, user utilities, and mocked asynchronous API behavior.
 
 ## Continuous Integration
 
-GitHub Actions runs the Jest test suite on pushes and pull requests targeting `main`.
-
-Workflow file: `.github/workflows/tests.yml`
+If the GitHub Actions workflow is present at `.github/workflows/tests.yml`, document that it runs the Jest test suite on the configured push and pull-request events.
 
 ## Current Limitations
 
 - Authentication is a demonstration using local Redux state; it is not connected to a real authentication backend.
-- Users data comes from the public JSONPlaceholder demo API.
-- Redux state persistence has not been implemented.
+- User data comes from the public JSONPlaceholder API.
+- Redux authentication state is not persisted across app restarts.
+- The Notifications preference does not enable actual device notifications.
+- Privacy & Security is not yet implemented.
 
 ## Future Improvements
 
-- Add form validation and real backend authentication.
-- Add secure token handling where authentication is introduced.
-- Add pagination and search for users.
+- Implement backend authentication and form validation.
+- Add secure token storage when real authentication is introduced.
+- Add pagination for larger user datasets.
 - Expand component and integration test coverage.
+- Implement the Privacy & Security screen.
 - Add screenshots and a demonstration video.
 
 ## License
 
-Choose and add a license before distributing the project for reuse.
+No license has been specified yet. Add a license file before granting others permission to reuse or redistribute the project.

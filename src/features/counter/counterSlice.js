@@ -17,7 +17,9 @@ const counterSlice = createSlice({
       }
     },
     incrementByAmount: (state, action) => {
-      state.value += action.payload;
+      if (Number.isFinite(action.payload)) {
+        state.value += action.payload;
+      }
     },
     reset: state => {
       state.value = 0;

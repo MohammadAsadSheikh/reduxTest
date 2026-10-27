@@ -219,7 +219,7 @@ export default function UserDetailsScreen({ route }) {
           <InfoRow
             label="Coordinates"
             value={
-              address?.geo?.lat && address?.geo?.lng
+              address?.geo?.lat != null && address?.geo?.lng != null
                 ? `${address.geo.lat}, ${address.geo.lng}`
                 : null
             }
