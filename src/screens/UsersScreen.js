@@ -6,13 +6,13 @@ import {
   Text,
   View,
   Button,
+  Pressable,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { fetchUsers } from '../features/users/usersSlice';
 
-export default function UsersScreen() {
+export default function UsersScreen({ navigation }) {
   const dispatch = useDispatch();
 
   const { data, status, error } = useSelector(state => state.users);
@@ -24,11 +24,19 @@ export default function UsersScreen() {
   }, [dispatch, status]);
 
   const renderUser = ({ item }) => (
-    <View style={styles.userCard}>
+    <Pressable
+      style={styles.userCard}
+      onPress={() =>
+        navigation.navigate('UserDetails', {
+          userId: item.id,
+        })
+      }
+    >
       <Text style={styles.name}>{item.name}</Text>
       <Text style={styles.email}>{item.email}</Text>
       <Text style={styles.company}>{item.company.name}</Text>
-    </View>
+      <Text style={styles.viewDetails}>View details →</Text>
+    </Pressable>
   );
 
   return (
@@ -99,5 +107,10 @@ const styles = StyleSheet.create({
   error: {
     color: '#DC2626',
     textAlign: 'center',
+  },
+  viewDetails: {
+    marginTop: 10,
+    color: '#2563EB',
+    fontWeight: '600',
   },
 });
