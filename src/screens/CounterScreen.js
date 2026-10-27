@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 
 import {
   increment,
@@ -11,8 +11,8 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function CounterScreen({ navigation }) {
-  const count = useSelector(state => state.counter.value);
-  const dispatch = useDispatch();
+  const count = useAppSelector(state => state.counter.value);
+  const dispatch = useAppDispatch();
 
   return (
     <SafeAreaView

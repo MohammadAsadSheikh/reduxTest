@@ -9,14 +9,13 @@ import {
   Pressable,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { fetchUsers } from '../features/users/usersSlice';
 
 export default function UsersScreen({ navigation }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { data, status, error } = useSelector(state => state.users);
-
+  const { data, status, error } = useAppSelector(state => state.users);
   useEffect(() => {
     if (status === 'idle') {
       dispatch(fetchUsers());
