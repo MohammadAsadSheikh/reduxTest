@@ -1,97 +1,139 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# reduxTest — React Native + Redux Toolkit
 
-# Getting Started
+A React Native CLI application demonstrating scalable state management, feature-based architecture, navigation, API integration, and automated testing.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Features
 
-## Step 1: Start Metro
+- **Redux Toolkit:** Centralized store with Counter, Authentication, and Users features.
+- **Feature-based architecture:** Separates screens, state management, selectors, and navigation.
+- **React Navigation:** Native stack navigation and bottom tabs.
+- **API integration:** Fetches users from JSONPlaceholder using `createAsyncThunk`.
+- **Loading and error handling:** Manages asynchronous request states.
+- **Reusable Redux hooks:** Centralizes Redux hook imports.
+- **Selectors:** Separates state selection from UI components.
+- **Safe-area support:** Uses `react-native-safe-area-context`.
+- **Unit tests:** Tests reducers and async thunk behavior with Jest.
+- **Continuous integration:** GitHub Actions runs the Jest test suite on pushes and pull requests to `main`.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Tech Stack
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+- React Native
+- React
+- Redux Toolkit
+- React Redux
+- React Navigation
+- Jest
+- GitHub Actions
 
-```sh
-# Using npm
-npm start
+## Project Structure
 
-# OR using Yarn
-yarn start
+```text
+src/
+├── app/
+│   ├── store.js
+│   └── hooks.js
+├── features/
+│   ├── counter/
+│   │   ├── counterSlice.js
+│   │   ├── counterSelectors.js
+│   │   └── __tests__/
+│   ├── auth/
+│   │   ├── authSlice.js
+│   │   ├── authSelectors.js
+│   │   └── __tests__/
+│   └── users/
+│       ├── usersSlice.js
+│       ├── usersSelectors.js
+│       └── __tests__/
+├── navigation/
+├── screens/
+│   ├── CounterScreen.js
+│   ├── LoginScreen.js
+│   ├── UsersScreen.js
+│   └── UserDetailsScreen.js
+├── components/
+├── services/
+└── utils/
 ```
 
-## Step 2: Build and run your app
+## Architecture
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+The application uses a feature-based Redux Toolkit architecture.
 
-### Android
+1. Screens dispatch actions or asynchronous thunks.
+2. Reducers update their respective feature states.
+3. Selectors expose state to screens.
+4. React Redux subscribes components to relevant state changes.
+5. React Navigation manages transitions between screens.
 
-```sh
-# Using npm
-npm run android
+## Getting Started
 
-# OR using Yarn
-yarn android
+### Requirements
+
+- Node.js compatible with the project engine requirement (`>=22.11.0`)
+- npm
+- Xcode for iOS development
+- Android Studio for Android development
+
+### Installation
+
+```bash
+git clone <https://github.com/MohammadAsadSheikh/reduxTest>
+cd reduxTest
+npm ci
 ```
 
 ### iOS
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
+```bash
+npx pod-install ios
+npm start
 ```
 
-Then, and every time you update your native dependencies, run:
+In another terminal:
 
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
+```bash
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+### Android
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+Start an Android emulator or connect an Android device, then run:
 
-## Step 3: Modify your app
+```bash
+npm run android
+```
 
-Now that you have successfully run the app, let's make changes!
+## Testing
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+Run the complete Jest test suite:
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+```bash
+npm test -- --runInBand
+```
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+The tests cover Counter and Authentication reducers, Users async state transitions, and mocked API thunk behavior.
 
-## Congratulations! :tada:
+## Continuous Integration
 
-You've successfully run and modified your React Native App. :partying_face:
+GitHub Actions runs the Jest test suite on pushes and pull requests targeting `main`.
 
-### Now what?
+Workflow file: `.github/workflows/tests.yml`
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+## Current Limitations
 
-# Troubleshooting
+- Authentication is a demonstration using local Redux state; it is not connected to a real authentication backend.
+- Users data comes from the public JSONPlaceholder demo API.
+- Redux state persistence has not been implemented.
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+## Future Improvements
 
-# Learn More
+- Add form validation and real backend authentication.
+- Add secure token handling where authentication is introduced.
+- Add pagination and search for users.
+- Expand component and integration test coverage.
+- Add screenshots and a demonstration video.
 
-To learn more about React Native, take a look at the following resources:
+## License
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Choose and add a license before distributing the project for reuse.
